@@ -1,24 +1,31 @@
-# README
+- セミナーやパーティーなどに一緒にいく仲間を募る
+  - 行く予定のパーティーなどをプロフィールのところに記載
+  - 同じパーティーに参加予定の人が表示される
+  - パーティーの予定などを記載してもらう時にtext形式で書いてもらう
+###問題点
+  - マッチングの際に正規表現で同一のものを探す必要があるがデータベースに同じものが複数保存されることになる。パーティの名前も正確に記載してもらう必要がある。
+###改善案
+  - 正規表現で似ているパーティー名の場合はデータベース上にあるパーティー名を候補欄に表示してあげる
+  - ダイアログ形式が良い。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+##/index
+同じパーティーに参加予定のゆーざー一覧
+パーティーのカレンダー一覧
+検索システム
+##/show
+マイページ
+自分が登録したイベント
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Model
+user
+```
+has_many :events, has_many :events_users_releations
+```
+event
+```
+has_many :users, has_many :events_users_releations
+```
+events_users_releations
+```
+belongs_to :user, :event
+```
