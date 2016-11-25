@@ -1,0 +1,20 @@
+.container
+  h1
+    | Event一覧
+  .header
+    ul
+      li
+        = link_to "作成", new_event_path
+      li
+        = link_to "マイページ", user_path(current_user)
+  .search_form
+  .contents.row
+    - @events.each do |event|
+      .event.col-md-7
+        .image
+          = image_tag event.image
+        .title
+          = image.title
+
+
+

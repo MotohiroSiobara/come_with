@@ -27,7 +27,9 @@ gem 'slim-rails'
 gem 'devise'
 gem 'bootstrap-sass'
 gem 'simple_form'
-gem 'rb-readline'
+gem 'carrierwave'
+gem 'rmagick'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
