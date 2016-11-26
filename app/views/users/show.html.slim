@@ -1,4 +1,10 @@
-h1
+.navigator
+  == render "navigator"
+.image
+  = image_tag @user.icon, size: "100x100"
+.name
   = @user.name
-h2
+.profile
   = @user.profile
+.btn-group
+  = link_to "編集", edit_user_path(@user), class: "btn btn-default"
