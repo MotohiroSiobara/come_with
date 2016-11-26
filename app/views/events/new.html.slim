@@ -1,5 +1,14 @@
-= simple_form_for(@event) do |f|
-  .form-input
-    = f.input :title
-  .form-actions
-    = f.submit
+
+.row.container
+  h1
+    | Event作成
+  = simple_form_for @event do |f|
+    .form-inputs.col-md-6
+      = f.input :title, :input_html => { :class => "form-control" }
+      = f.input :description, :input_html => { :class => "form-control" }
+      = f.input :url, :input_html => { :class => "form-control" }
+      = f.input :schedule, :input_html => { :class => "form-control" }
+      = f.input :recruitment_numbers, :input_html => { :class => "form-control" }
+      = f.input :participants, :input_html => { :class => "form-control" }
+      = f.input :image, :input_html => { :class => "form-control" }
+      = f.button :submit, :class => 'btn-primary'

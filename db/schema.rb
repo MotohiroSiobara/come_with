@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125074215) do
+ActiveRecord::Schema.define(version: 20161125074840) do
 
   create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "title"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20161125074215) do
     t.integer  "recruitment_numbers"
     t.integer  "participants"
     t.boolean  "result"
+    t.string   "image"
   end
 
   create_table "events_users_relationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -50,6 +51,7 @@ ActiveRecord::Schema.define(version: 20161125074215) do
     t.datetime "updated_at",                                        null: false
     t.string   "name"
     t.text     "profile",                limit: 65535
+    t.string   "icon"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree

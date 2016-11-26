@@ -8,7 +8,17 @@ class EventsController < ApplicationController
   end
 
   def create
-    event = Event.new(title: params[:event][:title])
-    render :index
+    event = Event.new(event_params)
+    if event.save
+      redirect_to events_path
+    else
+      render :new
+    end
+  end
+
+  private
+
+  def event_params
+    params.require(:event).permit(:title, :url, :image, :description, :schedule, :recruitment_numbers, :participants)
   end
 end

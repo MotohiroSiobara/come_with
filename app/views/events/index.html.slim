@@ -12,9 +12,24 @@
     - @events.each do |event|
       .event.col-md-7
         .image
-          = image_tag event.image
+          = link_to event_path(event) do
+            = image_tag event.image, size: "300x200"
         .title
-          = image.title
+          = link_to event_path(event) do
+            h2
+              = event.title
+        .url
+          | URL
+          = link_to event.url
+        .schedule
+          | 開催日
+          = event.schedule
+        .recruitment_number
+          | 募集人数
+          = event.recruitment_numbers
+        .participants
+          | 参加人数
+          = event.participants
 
 
 
