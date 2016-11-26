@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:edit, :show, :create, :update]
+  before_action :set_event, only: [:edit, :show, :create, :update, :join]
   def index
     @events = Event.all
   end
@@ -26,6 +26,11 @@ class EventsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def join
+    @event.users << current_user
+    @event.counter_up
   end
 
   private

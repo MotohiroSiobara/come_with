@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :events, through: :events_users_relationships
-  has_many :events_users_relationships
+  has_many :events_users_relationships, dependent: :destroy
   mount_uploader :icon, ImageUploader
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

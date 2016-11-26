@@ -1,0 +1,8 @@
+.navigator
+  ul
+    li
+      = link_to "作成", new_event_path
+    li
+      = link_to "マイページ", user_path(current_user)
+    li
+      = link_to "一覧", events_path

@@ -1,8 +1,6 @@
 
   h1
     | Event一覧
-  .navigator
-    == render "navigator"
   .search_form
   .contents.row
     - @events.each do |event|
@@ -23,3 +21,8 @@
         .participants
           | 現在の参加人数
           = event.participants
+        .commit_button
+          - if event.result?
+            = link_to "募集終了", "",disabled: true, class: "btn btn-default"
+          - else
+            = link_to "参加", join_event_path(event), class: "btn btn-default"
