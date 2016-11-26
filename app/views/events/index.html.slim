@@ -1,12 +1,8 @@
 .container
   h1
     | Event一覧
-  .header
-    ul
-      li
-        = link_to "作成", new_event_path
-      li
-        = link_to "マイページ", user_path(current_user)
+  .navigator
+    == render "navigator"
   .search_form
   .contents.row
     - @events.each do |event|
