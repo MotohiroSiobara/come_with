@@ -7,7 +7,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @events = current_user.events
+    @holding = current_user.holding_events
+    @joining = current_user.join_events
   end
 
   def edit
