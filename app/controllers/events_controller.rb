@@ -1,7 +1,12 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:edit, :show, :create, :update, :join]
+  before_action :set_event, only: [:edit, :show, :update, :join]
+  before_action :authenticate
+
   def index
-    @events = Event.all
+    @search = Event.search(params[:q])
+    @events = @search.result.reorder("created_at DESC").page(params[:page]).per(20)
+    result = @search.result.includes(:users)
+    @title = params[:q][:title_cont] if params[:q].present?
   end
 
   def new
@@ -14,6 +19,7 @@ class EventsController < ApplicationController
   def create
     event = Event.new(event_params)
     if event.save
+      current_user.holding_events << event
       redirect_to events_path
     else
       render :new
@@ -29,7 +35,7 @@ class EventsController < ApplicationController
   end
 
   def join
-    @event.users << current_user
+    @event.participants << current_user
     @event.counter_up
   end
 

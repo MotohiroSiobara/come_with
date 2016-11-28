@@ -1,5 +1,3 @@
-.navigator
-  == render "navigator"
 .image
   = image_tag @user.icon, size: "100x100"
 .name
@@ -8,3 +6,24 @@
   = @user.profile
 .btn-group
   = link_to "編集", edit_user_path(@user), class: "btn btn-default"
+.events
+  h4
+    | 参加予定のプログラム
+  - @events.each do |event|
+    .event.col-md-3
+      .image
+        = link_to event_path(event) do
+          = image_tag event.image, size: "200x200"
+      .title
+        = link_to event_path(event) do
+          h4
+            = event.title
+      .schedule
+        | 開催日
+        = event.schedule
+      .recruitment_number
+        | 募集人数
+        = event.recruitment_numbers
+      .participants
+        | 現在の参加人数
+        = event.participants

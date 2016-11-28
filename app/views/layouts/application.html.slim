@@ -7,5 +7,6 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body[id="#{controller_name}_#{action_name}" class="container"]
-    == render "layouts/navigator"
+    - if user_signed_in?
+      == render "layouts/navigator"
     = yield

@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :create, :update, :edit]
+  before_action :authenticate
+
 
   def index
   end
 
   def show
+    @events = current_user.events
   end
 
   def edit

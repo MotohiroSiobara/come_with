@@ -1,6 +1,8 @@
 class Event < ApplicationRecord
-  has_many :users, through: :events_users_relationships
-  has_many :events_users_relationships, dependent: :destroy
+  has_many :participants, through: :events_participants_relationships, source: :user
+  has_many :events_participants_relationships, dependent: :destroy
+  has_many :organizers, through: :events_organizer_relationships, source: :user
+  has_many :events_organizer_relationships, dependent: :destroy
   mount_uploader :image, ImageUploader
 
   def counter_up
