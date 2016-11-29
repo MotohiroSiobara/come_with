@@ -2,6 +2,15 @@ puts "Event delete"
 Event.delete_all
 puts "User delete"
 User.delete_all
+puts "Genre delete"
+Genre.delete_all
+puts "Genre create"
+["音楽","演劇・ダンス","プロダクト","テクノロジー","ゲーム","コミュニティ","フード","写真","ファッション","映像・映画","パフォーマンス","スポーツ","ビジネス","ソーシャルグッド"].each do |name|
+  genre = Genre.new(
+    name: name
+  )
+  genre.save(validate: false)
+end
 puts "User create"
 (1..20).each do |n|
   user = User.new(
@@ -25,6 +34,7 @@ puts "Event create"
     schedule: Faker::Date.between(20.days.ago, Date.today),
     recruitment_numbers: rand(20),
     participant_count: rand(10),
+    genre_id: rand(Genre.first.id..Genre.last.id)
   )
   event.save(validate: false)
   User.find(rand(User.first.id..User.last.id)).holding_events << event

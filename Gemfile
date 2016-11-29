@@ -36,6 +36,7 @@ gem "kaminari"
 gem 'ransack'
 gem 'bootstrap-datetimepicker-rails'
 gem 'momentjs-rails'
+gem "nested_form"
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password

@@ -16,3 +16,4 @@
 //= require_tree .
 //= require bootstrap.min
 //= require bootstrap-datetimepicker.min
+//= require nested_form

@@ -1,32 +1,35 @@
-.image
-  = image_tag @user.icon, size: "100x100"
-.name
-  = @user.name
-.profile
-  = @user.profile
-.btn-group
-  = link_to "編集", edit_user_path(@user), class: "btn btn-default"
+.user.col-md-12
+  .image
+    = image_tag @user.icon, size: "200x200"
+  .name
+    h4
+      = @user.name
+  .profile
+    = simple_format @user.profile
+  .btn-group
+    = link_to "編集", edit_user_path(@user), class: "btn btn-default"
 .holding.row
   h4
     | 作成したプログラム
   - @holding.each do |event|
-    .event.col-md-3
-      .image
+    .event.col-md-3.panel.panel-default
+      .panel-body
         = link_to event_path(event) do
           = image_tag event.image, size: "200x200"
-      .title
         = link_to event_path(event) do
-          h4
+          p
             = event.title
-      .schedule
         | 開催日
         = event.schedule
-      .recruitment_number
-        | 募集人数
-        = event.recruitment_numbers
-      .participants
-        | 現在の参加人数
-        = event.participant_count
+        .counter.row
+          .recruitment_number.col-md-4
+            | 募集人数
+            br
+            = "残り#{event.recruitment_numbers}人"
+          .participants.col-md-6
+            | 現在の参加人数
+            br
+            = "#{event.participant_count}人"
 
 .joining.row
   h4
@@ -43,9 +46,12 @@
       .schedule
         | 開催日
         = event.schedule
-      .recruitment_number
-        | 募集人数
-        = event.recruitment_numbers
-      .participants
-        | 現在の参加人数
-        = event.participants
+      .counter.row
+        .recruitment_number.col-md-4
+          | 募集人数
+          br
+          = "残り#{event.recruitment_numbers}人"
+        .participants.col-md-6
+          | 現在の参加人数
+          br
+          = "#{event.participant_count}人"

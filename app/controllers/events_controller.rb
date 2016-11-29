@@ -1,25 +1,28 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:edit, :show, :update, :join]
+  before_action :set_event, only: [:edit, :show, :update, :join, :destroy, :remove]
   before_action :authenticate
 
   def index
     @search = Event.search(params[:q])
+    if params[:q].present?
+      @genre = params[:q][:genre_id_eq]
+      @title = params[:q][:title_cont]
+    end
     @events = @search.result.reorder("created_at DESC").page(params[:page]).per(20)
-    result = @search.result.includes(:users)
-    @title = params[:q][:title_cont] if params[:q].present?
   end
 
   def new
     @event = Event.new
+    @genre = Genre.new
   end
 
   def edit
   end
 
   def create
-    event = Event.new(event_params)
-    if event.save
-      current_user.holding_events << event
+    @event = Event.new(event_params)
+    if @event.save
+      current_user.holding_events << @event
       redirect_to events_path
     else
       render :new
@@ -28,7 +31,7 @@ class EventsController < ApplicationController
 
   def update
     if @event.update(event_params)
-      redirect_to events_path
+      redirect_to event_path(@event)
     else
       render :edit
     end
@@ -36,13 +39,24 @@ class EventsController < ApplicationController
 
   def join
     @event.participants << current_user
-    @event.counter_up
+    @event.people_counter("up")
+  end
+
+  def destroy
+    @event.destroy
+    redirect_to user_path(current_user)
+  end
+
+  def remove
+    EventsParticipantsRelationship.find_by(user_id: current_user.id, event_id: @event.id).destroy
+    @event.people_counter("down")
+    redirect_to user_path(current_user)
   end
 
   private
 
   def event_params
-    params.require(:event).permit(:title, :url, :image, :description, :schedule, :recruitment_numbers, :participants)
+    params.require(:event).permit(:title, :url, :image, :description, :schedule, :recruitment_numbers, :participant_count, :genre_id)
   end
 
   def set_event

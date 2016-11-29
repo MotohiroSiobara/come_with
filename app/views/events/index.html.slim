@@ -1,37 +1,48 @@
-h1
-  | Event一覧
-.search_form
-  = search_form_for @search, builder: SimpleForm::FormBuilder  do |f|
-    .form-inputs
-      .row
-        .col-sm-4
-          = f.input :title_cont, label: "プログラムタイトル", input_html: { value: @title }
-    .form-actions
-      = f.button :submit, "検索"
-.contents.row
-  - @events.each do |event|
-    .event.col-md-3
-      .image
-        = link_to event_path(event) do
-          = image_tag event.image, size: "200x200"
-      .title
-        = link_to event_path(event) do
-          h4
-            = event.title
-      .schedule
-        | 開催日
-        = event.schedule
-      .recruitment_number
-        | 募集人数
-        = "残り#{event.recruitment_numbers}人"
-      .participants
-        | 現在の参加人数
-        = "#{event.participant_count}人"
-      .commit_button
-        - unless event.organizers.include?(current_user)
-          - if event.result?
-            = link_to "募集終了", "",disabled: true, class: "btn btn-default"
-          - elsif event.participants.include?(current_user)
-            = link_to "参加登録中", "", disabled: true, class: "btn btn-default"
-          - else
-            = link_to "参加", join_event_path(event), class: "btn btn-default"
+.row
+  h1
+    | Event一覧
+  .search_form
+    = search_form_for @search, builder: SimpleForm::FormBuilder  do |f|
+      .form-inputs
+        .row
+          .col-sm-4
+            = f.input :title_cont, placeholder: "タイトル検索", input_html: { value: @title }
+          //.col-sm-4
+            = f.input :schedule_eq, placeholder: "開催日を選択", input_html: { value: @title, class: "datetimepicker" }, as: :string, use_month_numbers: true
+          .col-sm-4
+            = f.input :genre_id_eq, collection: Genre.all, label_method: :name,  value_method: :id, input_html: { value: @genre || "" }
+      .form-actions
+        = f.button :submit, "検索"
+  .contents.row
+    - @events.each do |event|
+      .event.col-md-3
+        .image
+          = link_to event_path(event) do
+            = image_tag event.image, size: "200x200"
+        .title
+          = link_to event_path(event) do
+            h4
+              = event.title
+        .schedule
+          | 開催日  
+          = event.schedule
+        .genre
+          | ジャンル  
+          = event.genre.try(:name)
+        .counter.row
+          .recruitment_number.col-md-4
+            | 募集人数
+            br
+            = "残り#{event.recruitment_numbers}人"
+          .participants.col-md-6
+            | 現在の参加人数
+            br
+            = "#{event.participant_count}人"
+        .commit_button
+          - unless event.organizers.include?(current_user)
+            - if event.result?
+              = link_to "募集終了", "",disabled: true, class: "btn btn-default"
+            - elsif event.participants.include?(current_user)
+              = link_to "参加登録中", "", disabled: true, class: "btn btn-default"
+            - else
+              = link_to "参加", join_event_path(event), class: "btn btn-default"

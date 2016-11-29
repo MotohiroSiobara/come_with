@@ -1,4 +1,6 @@
 = simple_form_for @event do |f|
+  = f.error_notification
+
   .form-inputs.col-md-6
     = f.input :title
     = f.input :description
@@ -7,4 +9,5 @@
     = f.input :recruitment_numbers
     = f.input :participant_count
     = f.input :image
+    = f.association :genre
     = f.button :submit

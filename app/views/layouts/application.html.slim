@@ -6,7 +6,9 @@ html
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  body[id="#{controller_name}_#{action_name}" class="container"]
+  body[id="#{controller_name}_#{action_name}"]
     - if user_signed_in?
       == render "layouts/navigator"
-    = yield
+    .container#main_content
+      = yield
+    == render "layouts/footer"

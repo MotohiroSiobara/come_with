@@ -1,8 +1,15 @@
-.navigator
-  ul
-    li
-      = link_to "作成", new_event_path
-    li
-      = link_to "マイページ", user_path(current_user)
-    li
-      = link_to "一覧", events_path
+nav.navbar.navbar-inverse.navbar-fixed-top
+  .navbar-header
+    a.navbar-brand href="#"  LOGO
+    button.navbar-toggle data-target="#nav-content" data-toggle="collapse" type="button"
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+  #nav-content.collapse.navbar-collapse
+    ul.nav.navbar-nav
+      li
+        = link_to "プログラムを作成", new_event_path
+      li
+        = link_to "プログラムを探す", events_path
+      li
+        = link_to "マイページ", user_path(current_user)
