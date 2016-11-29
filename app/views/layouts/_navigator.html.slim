@@ -7,9 +7,17 @@ nav.navbar.navbar-inverse.navbar-fixed-top
       span.icon-bar
   #nav-content.collapse.navbar-collapse
     ul.nav.navbar-nav
-      li
-        = link_to "プログラムを作成", new_event_path
-      li
-        = link_to "プログラムを探す", events_path
-      li
-        = link_to "マイページ", user_path(current_user)
+      - if user_signed_in?
+        li
+          = link_to "プログラムを作成", new_event_path
+        li
+          = link_to "プログラムを探す", events_path
+        li
+          = link_to "マイページ", user_path(current_user)
+        li
+          = link_to "ログアウト", destroy_user_session_path, method: :delete
+      - else
+        li
+          = link_to "Log in", new_session_path(resource_name)
+        li
+          = link_to "Sign up", new_registration_path(resource_name)

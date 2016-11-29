@@ -10,48 +10,13 @@
     = link_to "編集", edit_user_path(@user), class: "btn btn-default"
 .holding.row
   h4
-    | 作成したプログラム
-  - @holding.each do |event|
-    .event.col-md-3.panel.panel-default
-      .panel-body
-        = link_to event_path(event) do
-          = image_tag event.image, size: "200x200"
-        = link_to event_path(event) do
-          p
-            = event.title
-        | 開催日
-        = event.schedule
-        .counter.row
-          .recruitment_number.col-md-4
-            | 募集人数
-            br
-            = "残り#{event.recruitment_numbers}人"
-          .participants.col-md-6
-            | 現在の参加人数
-            br
-            = "#{event.participant_count}人"
-
+    | 募集中のプログラム
+  == render "events/events", events: @holding
+.holded.row
+  h4
+    | 募集終了したプログラム
+  == render "events/events", events: @holded
 .joining.row
   h4
     | 参加予定のプログラム
-  - @joining.each do |event|
-    .event.col-md-3
-      .image
-        = link_to event_path(event) do
-          = image_tag event.image, size: "200x200"
-      .title
-        = link_to event_path(event) do
-          h4
-            = event.title
-      .schedule
-        | 開催日
-        = event.schedule
-      .counter.row
-        .recruitment_number.col-md-4
-          | 募集人数
-          br
-          = "残り#{event.recruitment_numbers}人"
-        .participants.col-md-6
-          | 現在の参加人数
-          br
-          = "#{event.participant_count}人"
+  == render "events/events", events: @joining

@@ -7,7 +7,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @holding = current_user.holding_events
+    @holding = current_user.holding_events.reject(&:result?)
+    @holded = current_user.holding_events.where(result: true)
     @joining = current_user.join_events
   end
 

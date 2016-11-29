@@ -1,0 +1,11 @@
+.container
+  .col-md-6
+    h2
+      | log in
+    = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      = f.error_notification
+
+      = f.input :email, autofocus: true
+      = f.input :password, autocomplete: "off", label: "password (6文字以上)"
+      = f.button :submit, "sign up"
+    == render "devise/shared/links"

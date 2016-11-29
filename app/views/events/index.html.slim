@@ -13,6 +13,7 @@
             = f.input :genre_id_eq, collection: Genre.all, label_method: :name,  value_method: :id, input_html: { value: @genre || "" }
       .form-actions
         = f.button :submit, "検索"
+  = paginate @events
   .contents.row
     - @events.each do |event|
       .event.col-md-3
@@ -46,3 +47,4 @@
               = link_to "参加登録中", "", disabled: true, class: "btn btn-default"
             - else
               = link_to "参加", join_event_path(event), class: "btn btn-default"
+  = paginate @events

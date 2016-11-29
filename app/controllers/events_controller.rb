@@ -30,6 +30,7 @@ class EventsController < ApplicationController
   end
 
   def update
+    binding.pry
     if @event.update(event_params)
       redirect_to event_path(@event)
     else
@@ -56,7 +57,10 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:title, :url, :image, :description, :schedule, :recruitment_numbers, :participant_count, :genre_id)
+    if params[:event][:result] == "1"
+      params[:event][:recruitment_numbers] = 0
+    end
+    params.require(:event).permit(:title, :url, :image, :description, :schedule, :recruitment_numbers, :participant_count, :genre_id, :result)
   end
 
   def set_event

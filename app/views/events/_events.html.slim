@@ -1,0 +1,19 @@
+- events.each do |event|
+  .event.col-md-3.panel.panel-default
+    .panel-body
+      = link_to event_path(event) do
+        = image_tag event.image, size: "200x200"
+      = link_to event_path(event) do
+        p
+          = event.title
+      | 開催日
+      = event.schedule
+      .counter.row
+        .recruitment_number.col-md-4
+          | 募集人数
+          br
+          = "残り#{event.recruitment_numbers}人"
+        .participants.col-md-6
+          | 現在の参加人数
+          br
+          = "#{event.participant_count}人"
